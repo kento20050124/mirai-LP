@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mirAI - 子どもの未来を広げるAI教育プログラム</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e94e9c;
+            --secondary: #4a6bff;
+            --accent: #ffb347;
+            --dark: #333333;
+            --light: #ffffff;
+            --gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: var(--dark) ;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--light);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        .hero {
+            background-image: url('images/Gemini_Generated_Image_1o7wi81o7wi81o7w.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.7);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 80px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h1 span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 78, 156, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 78, 156, 0.4);
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .problem {
+            background-color: var(--gray);
+        }
+        
+        .problem-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .quote {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        
+        .text-block {
+            margin-bottom: 30px;
+        }
+        
+        .text-block p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .image-text-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+        
+        .section-subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .solution {
+            background-color: var(--light);
+        }
+        
+        .features {
+            background-color: var(--gray);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .zoom-section {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .zoom-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .zoom-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .zoom-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .zoom-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .zoom-text p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonials {
+            background-color: var(--gray);
+        }
+        
+        .testimonial-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .cta {
+            background-color: var(--light);
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--secondary);
+        }
+        
+        .qr-container {
+            margin: 40px auto;
+            max-width: 200px;
+            position: relative;
+        }
+        
+        .qr-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .qr-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            border: 3px solid var(--primary);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            margin-top: 30px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .company-info {
+            margin-bottom: 30px;
+        }
+        
+        .company-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .company-address {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 30px;
+        }
+        
+        /* アニメーション */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* パーティクル */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--primary);
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        .particle:nth-child(2n) {
+            background-color: var(--secondary);
+        }
+        
+        .particle:nth-child(3n) {
+            background-color: var(--accent);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(-40px) translateX(20px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-20px) translateX(30px) rotate(270deg);
+            }
+            100% {
+                transform: translateY(0) translateX(40px) rotate(360deg);
+            }
+        }
+        
+        /* 3Dチルト効果 */
+        .tilt {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .image-text-grid, .zoom-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .text-block p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .quote {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* テキスト視認性向上 */
+        .text-contrast {
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <img src="images/mirai_logo.jpg" alt="mirAI Logo" class="logo">
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="container hero-content">
+            <h1><span>「AI時代の勝ち組」</span> になる子を育てる</h1>
+            <p class="subtitle">今なら間に合う、未来を生き抜くための新しい学び</p>
+            <a href="#learn-more" class="btn">詳しく見る</a>
+        </div>
+    </section>
+    
+    <section class="section problem" id="learn-more">
+        <div class="container">
+            <h2 class="section-title">今、静かに広がる「新しい教育格差」</h2>
+            <div class="problem-content">
+                <p class="quote">「ねぇ、お母さん。働かなくてもAIが全部やってくれる時代になるんでしょ？」</p>
+                <div class="text-block fade-in">
+                    <p>そんな質問を、お子さんからされたことはありませんか？</p>
+                    <p>英語、プログラミング、そして今は──AIです。<br>
+                    子どもたちは、私たち大人が想像する以上に、世界の変化を敏感に感じ取っています。</p>
+                </div>
+                
+                <div class="image-text-grid">
+                    <div class="text-block fade-in">
+                        <h3 class="section-subtitle">新しい学びのカタチ</h3>
+                        <p>AIが社会を変える。<br>
+                        そんな言葉を、もう何年も聞いてきました。<br>
+                        でも、今までは「まだ先の話」と思っていませんでしたか？</p>
+                        <p>ところが今、本当に"その時"が来ています。</p>
+                    </div>
+                    <div class="image-container fade-in">
+                        <img src="images/new_learning_style.jpg" alt="新しい学びのカタチ">
+                    </div>
+                </div>
+                
+                <div class="text-block fade-in">
+                    <h3 class="section-subtitle">世界は変わりつつある</h3>
+                    <p>中学生がAIでレポートを書き、<br>
+                    小学生が自分の声をAIで合成し、<br>
+                    海外の子どもたちは、AIと一緒にアプリを作っています。</p>
+                    <p>日本ではまだ少ないですが、このまま何もしなければ、<br>
+                    「AIを自由に使える子」と「ただ使われるだけの子」に、はっきりと分かれます。</p>
+                    <p>勉強ができるかどうかじゃありません。<br>
+                    賢いかどうかでもありません。</p>
+                    <p>AIをどう使うか、どう付き合うか。<br>
+                    それが、これからの子どもたちの"生きる力"になります。</p>
+                    <p>でも、学校ではまだ教えてくれません。<br>
+                    YouTubeやSNSには不正確な情報も多く、<br>
+                    親自身も「何から学べばいいか分からない」というのが現実です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section solution">
+        <div class="container">
+            <h2 class="section-title">子どもが楽しみながら"未来のスキル"を身につける、新しい学びの場</h2>
+            <div class="text-block fade-in">
+                <p>そこで私たちは、子どもが楽しみながら"未来のスキル"を身につけられる、AIの学び場をつくりました。</p>
+                <p>難しいプログラミングは不要。<br>
+                カリキュラムはすべて「子どもの視点」で設計されています。</p>
+                <p>ChatGPTや画像生成AIなど、実際に世界で使われているツールに触れながら、<br>
+                「どう質問すれば良い答えが返ってくるか」<br>
+                「AIに任せすぎず、自分の頭で考えるとはどういうことか」<br>
+                を、自然と学んでいきます。</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section zoom-section">
+        <div class="container">
+            <h2 class="section-title">生成AIのプロから1対1でZoomレッスン</h2>
+            <div class="zoom-content">
+                <div class="zoom-image fade-in">
+                    <img src="images/messageImage_1743230713870.jpg" alt="Zoomレッスン">
+                </div>
+                <div class="zoom-text fade-in">
+                    <p>mirAIでは、生成AIを実務で活用している現役のプロフェッショナルが、お子さま一人ひとりに合わせた1対1のZoomレッスンを提供します。</p>
+                    <p>大人数のクラスでは得られない、きめ細かな指導と質問対応。お子さまのペースや興味に合わせたカリキュラムで、AIリテラシーを効果的に身につけることができます。</p>
+                    <p>また、保護者の方も安心して見守ることができ、お子さまの学びの様子をリアルタイムで確認できます。</p>
+                    <p>これは、ただの"習いごと"ではありません。<br>
+                    将来の職業選択、思考力、表現力、自己肯定感。<br>
+                    すべてに直結する、未来を生き抜くための準備です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">mirAIの教育プログラムの特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">実践的なAIスキル</h3>
+                    <p>実際に使われているAIツールを使って、実践的なスキルを身につけます。理論だけでなく、すぐに使える知識を提供します。</p>
+                </div>
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">批判的思考力の育成</h3>
+                    <p>AIに任せきりにするのではなく、自分の頭で考え、AIの出力を評価する力を養います。</p>
+                </div>
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3 class="feature-title">少人数制の個別指導</h3>
+                    <p>1対1のZoomレッスンで、お子さま一人ひとりのペースや興味に合わせた指導を行います。</p>
+                </div>
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">楽しく学べる工夫</h3>
+                    <p>ゲーム感覚で楽しみながら学べるカリキュラムで、子どもたちの好奇心と学習意欲を引き出します。</p>
+                </div>
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">最新技術への対応</h3>
+                    <p>常に最新のAI技術動向を取り入れ、カリキュラムを更新。時代に合った学びを提供します。</p>
+                </div>
+                <div class="feature-card fade-in tilt">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">コミュニケーション力の向上</h3>
+                    <p>AIとの対話を通じて、効果的な質問の仕方や明確な指示の出し方など、コミュニケーション能力を高めます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">多数の法人研修実績が証明する確かな教育メソッド</h2>
+            <div class="text-block fade-in">
+                <p>私たちは、大手IT企業から教育機関まで、多数の法人向けAI研修を実施してきました。その経験と知見を活かし、子どもたちにも最適化された教育プログラムを提供しています。</p>
+                <p>企業の人材育成で培った「実践的で、すぐに使える」教育メソッドは、子どもたちの学びにも大きな効果を発揮します。理論だけでなく、実際の活用シーンを想定した内容だからこそ、子どもたちの「できた！」という体験につながります。</p>
+                <p>また、最新のAI技術動向を常に取り入れ、カリキュラムを更新し続けているため、常に最先端の学びを提供できます。</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section cta">
+        <div class="container">
+            <h2 class="section-title">今すぐ行動することが、お子さまの「未来の武器」になります</h2>
+            <div class="text-block fade-in">
+                <p>未来に向けて、一歩先を行く子になるために。<br>
+                "ただの消費者"ではなく、"創る側の人間"になるために。</p>
+                <p>今、行動することが、お子さまの「未来の武器」になります。</p>
+            </div>
+            
+            <h3 class="cta-subtitle fade-in">＼ 初回無料体験実施中！ ／</h3>
+            <div class="text-block fade-in">
+                <p>まずは、お子さまと一緒に体験してみませんか？<br>
+                90分の無料体験授業で、AIの可能性と楽しさを実感していただけます。</p>
+            </div>
+            
+            <div class="qr-container fade-in">
+                <img src="images/qrcode.png" alt="QRコード">
+                <div class="qr-pulse"></div>
+            </div>
+            
+            <p class="cta-text fade-in">QRコードを読み取って無料体験にお申し込みください</p>
+            
+            <div class="text-block fade-in">
+                <p>「うちの子に合うかな？」「どんな内容なの？」など、<br>
+                どんな些細な質問でもお気軽にお問い合わせください。</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="company-info">
+                <p class="company-name">DATAREIN合同会社</p>
+                <p class="company-address">〒453-0872 愛知県名古屋市中村区平池町4丁目60−5</p>
+                <p class="company-address">ロイヤルパークスERささしま 1331号室</p>
+                <p class="company-address">TEL: 090-8337-6102</p>
+            </div>
+            <p class="copyright">© 2024 DATAREIN LLC</p>
+        </div>
+    </footer>
+    
+    <script>
+        // パーティクルアニメーション
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // ランダムなサイズ、位置、遅延を設定
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // スクロールアニメーション
+        function handleScrollAnimation() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.9) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        // 3Dチルト効果
+        function initTilt() {
+            const tiltElements = document.querySelectorAll('.tilt');
+            
+            tiltElements.forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+        }
+        
+        // ページ読み込み時に実行
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            handleScrollAnimation();
+            initTilt();
+            
+            // スクロール時にアニメーションをチェック
+            window.addEventListener('scroll', handleScrollAnimation);
+        });
+    </script>
+</body>
+</html>
