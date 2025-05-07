@@ -475,6 +475,59 @@
             transition: transform 0.1s;
         }
         
+        /* フォームリンク用の新しいスタイル */
+        .form-link-container {
+            margin: 30px auto;
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .form-btn {
+            background-color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: inline-block;
+            padding: 12px 30px;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+            width: 100%;
+        }
+        
+        .form-btn:hover {
+            background-color: #3a5bf0;
+            box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4);
+        }
+        
+        .btn-subtitle {
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .form-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--dark);
+            opacity: 0.5;
+            margin: 20px 0;
+        }
+        
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .form-divider::before {
+            margin-right: 10px;
+        }
+        
+        .form-divider::after {
+            margin-left: 10px;
+        }
+        
         /* レスポンシブ対応 */
         @media (max-width: 768px) {
             h1 {
@@ -512,6 +565,12 @@
             
             .quote {
                 font-size: 1.3rem;
+            }
+            
+            .form-btn {
+                width: 90%;
+                max-width: 300px;
+                padding: 10px 15px;
             }
         }
         
@@ -685,6 +744,16 @@
             </div>
             
             <p class="cta-text fade-in">QRコードを読み取って無料体験にお申し込みください</p>
+            
+            <!-- 追加するフォームリンク部分 -->
+            <div class="form-divider fade-in">または</div>
+            
+            <div class="form-link-container fade-in">
+                <a href="https://forms.gle/ZjWkUhEPUWsWRv3UA" class="btn form-btn">
+                    フォームから直接お申し込み
+                </a>
+                <p class="btn-subtitle">スマホでQRを読み取れない方はこちら</p>
+            </div>
             
             <div class="text-block fade-in">
                 <p>「うちの子に合うかな？」「どんな内容なの？」など、<br>
